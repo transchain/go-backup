@@ -1,0 +1,21 @@
+<html>
+    <body>
+        <p>go-backup errors</p>
+        <p>Hostname: {{ hostname }}</p>
+        <p>Time    : {{ now }}</p>
+        <ul>
+            {{- range $project, $customErrors := . }}
+                <li><p>{{ $project }}</p>
+                    <ul>
+                        {{- range $index, $customError := $customErrors }}
+                            <li><p>Message: {{ $customError.Message }}</p></li>
+                            {{- if $customError.GetHtmlStackTrace }}
+                                <li><p>Error  : {{ $customError.GetHtmlStackTrace }}</p></li>
+                            {{- end }}
+                        {{- end }}
+                    </ul>
+                </li>
+            {{- end }}
+        </ul>
+    </body>
+</html>

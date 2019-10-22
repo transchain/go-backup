@@ -1,0 +1,44 @@
+project_name: go-backup
+dist: build/goreleaser
+before:
+  hooks:
+    - go mod download
+    - go generate ./...
+builds:
+  - id: build
+    main: ./cmd/main.go
+    binary: go-backup
+    ldflags:
+      - -s -w -X github.com/transchain/go-backup/version.Version={{.Tag}} -X github.com/transchain/go-backup/version.GitCommit={{.Commit}}
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - 386
+      - amd64
+archives:
+  - id: archive
+    builds:
+      - build
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
+    replacements:
+      darwin: Darwin
+      linux: Linux
+      windows: Windows
+      386: i386
+      amd64: x86_64
+      format: binary
+    format_overrides:
+      - goos: windows
+        format: zip
+
+checksum:
+  name_template: 'checksums.txt'
+snapshot:
+  name_template: "{{ .Tag }}-next"
+changelog:
+  sort: asc
+  filters:
+    exclude:
+      - '^docs:'
+      - '^test:'

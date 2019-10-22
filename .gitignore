@@ -1,0 +1,16 @@
+# IDE directories
+.idea
+.vscode
+
+# Env file
+.env
+
+# Config file
+config.yml
+
+# Log files
+error.log
+
+# Build
+/build
+/assets

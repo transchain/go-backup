@@ -1,0 +1,47 @@
+destinations:
+  local:
+    folder1:
+      basePath: "/path/to/local/folder/1"
+    folder2:
+      basePath: "/path/to/local/folder/2"
+  sftp:
+    srv1:
+      user: "srv1-user-name"
+      host: "srv1.url"
+      port: "8080"
+      sshKeyPath: "/tmp/key1"
+      basePath: "/path/to/sftp/folder/1"
+    srv2:
+      user: "srv2-user-name"
+      host: "srv2.url"
+      port: "8080"
+      sshKeyPath: "/tmp/key2"
+      basePath: "/path/to/sftp/folder/2"
+mail:
+  host: smtp.example.com
+  port: 465
+  username: no-reply@example.com
+  password: secure
+  destEmails:
+    - admin@example.com
+projects:
+  project1:
+    path: "/path/to/the/project/1"
+    fileNumber: 1
+    cronSpec: "* * * * *"
+    task: "./bin/backup.sh"
+    backupFolder: backup
+    destinations:
+      - local.folder1
+      - local.folder2
+      - sftp.srv1
+      - sftp.srv2
+  project2:
+    path: "/path/to/the/project/2"
+    fileNumber: 3
+    cronSpec: "5 * * * *"
+    task: "./bin/backup.sh"
+    backupFolder: backup
+    destinations:
+      - local.folder1
+      - sftp.srv1
